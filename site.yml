@@ -16,12 +16,11 @@
     - install
     - configure
 
-  vars_prompt:
-    - name: 'charset'
-      default: UTF-8
-      private: no
-      prompt: 'Charset'
+  vars:
+    charset: UTF-8
+    locale: en_US
 
+  vars_prompt:
     - name: 'device'
       default: /dev/sda
       private: no
@@ -36,11 +35,6 @@
       default: auto
       private: no
       prompt: 'Firmware'
-
-    - name: 'locale'
-      default: en_US
-      private: no
-      prompt: 'Locale'
 
     - name: 'mirrorlist'
       default: https://www.archlinux.org/mirrorlist/all/

@@ -4,14 +4,14 @@
   gather_facts: no
   roles:
     - bootstrap
-    - { role: wipe, tags: [ 'unsafe' ], when: 'wipe | bool' }
+    - { role: wipe, tags: [ "unsafe" ], when: "wipe | bool" }
     - setup
     - timedate
-    - { role: partition, tags: [ 'unsafe' ] }
-    - { role: filesystem, tags: [ 'unsafe' ],
-        when: 'boot is defined or root is defined' }
+    - { role: partition, tags: [ "unsafe" ] }
+    - { role: filesystem, tags: [ "unsafe" ],
+        when: "boot is defined or root is defined" }
     - { role: mount,
-        when: 'boot is defined or root is defined' }
+        when: "boot is defined or root is defined" }
     - mirror
     - install
     - configure
@@ -21,32 +21,32 @@
     locale: en_US
 
   vars_prompt:
-    - name: 'device'
+    - name: "device"
       default: /dev/sda
       private: no
-      prompt: 'Device'
+      prompt: "Device"
 
-    - name: 'filesystem'
+    - name: "filesystem"
       default: btrfs
       private: no
-      prompt: 'Filesystem'
+      prompt: "Filesystem"
 
-    - name: 'firmware'
+    - name: "firmware"
       default: auto
       private: no
-      prompt: 'Firmware'
+      prompt: "Firmware"
 
-    - name: 'mirrorlist'
+    - name: "mirrorlist"
       default: https://www.archlinux.org/mirrorlist/all/
       private: no
-      prompt: 'Mirrorlist'
+      prompt: "Mirrorlist"
 
-    # - name: 'packages'
+    # - name: "packages"
     #   default: base
     #   private: no
-    #   prompt: 'Packages'
+    #   prompt: "Packages"
 
-    - name: 'wipe'
-      default: 'no'
+    - name: "wipe"
+      default: "no"
       private: no
-      prompt: 'Wipe'
+      prompt: "Wipe"

@@ -6,8 +6,8 @@
 
 - name: mount boot file system for bios firmware
   mount: fstype=ext4 name=/mnt/boot src={{ boot }} state=mounted
-  when: boot is defined and firmware == 'bios'
+  when: boot is defined and firmware == "bios"
 
 - name: mount boot file system for uefi firmware
   mount: fstype=vfat name=/mnt/boot src={{ boot }} state=mounted
-  when: boot is defined and firmware == 'uefi'
+  when: boot is defined and firmware == "uefi"

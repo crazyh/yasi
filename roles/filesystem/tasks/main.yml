@@ -2,11 +2,11 @@
 
 - name: make boot file system for bios firmware
   filesystem: dev={{ boot }} fstype=ext4
-  when: boot is defined and firmware == 'bios'
+  when: boot is defined and firmware == "bios"
 
 - name: make boot file system for uefi firmware
   filesystem2: dev={{ boot }} fstype=fat
-  when: boot is defined and firmware == 'uefi'
+  when: boot is defined and firmware == "uefi"
 
 - name: make root file system
   filesystem: dev={{ root }} fstype={{ filesystem }}

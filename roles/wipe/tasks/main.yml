@@ -1,10 +1,10 @@
 ---
 
 - name: unmount boot file system
-  mount: fstype='' name=/mnt/boot src='' state=unmounted
+  mount: fstype="" name=/mnt/boot src="" state=unmounted
 
 - name: unmount root file system
-  mount: fstype='' name=/mnt src='' state=unmounted
+  mount: fstype="" name=/mnt src="" state=unmounted
 
 - name: wipe signatures from device
   shell: blkid -o device {{ device }}* | sort -nr | xargs wipefs -a

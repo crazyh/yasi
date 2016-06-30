@@ -1,0 +1,12 @@
+---
+
+- name: check pacman mirrorlist
+  find: paths=/etc/pacman.d patterns=mirrorlist.*~
+  register: f
+
+- name: download pacman mirrorlist
+  get_url: backup=yes dest=/etc/pacman.d/mirrorlist force=yes url={{ mirrorlist }}
+  when: f.matched == 0
+
+- name: enable servers in pacman mirrorlist
+  replace: dest=/etc/pacman.d/mirrorlist regexp='^#(?!\s)'

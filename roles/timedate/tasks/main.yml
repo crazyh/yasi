@@ -1,0 +1,4 @@
+---
+
+- name: start systemd-timesyncd service
+  service: name=systemd-timesyncd state=started

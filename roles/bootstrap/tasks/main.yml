@@ -1,0 +1,7 @@
+---
+
+- name: assert ansible version
+  assert: { that: "ansible_version.major >= 2" }
+
+- name: install python
+  raw: hash python2 || pacman -Sy --noconfirm --needed python2

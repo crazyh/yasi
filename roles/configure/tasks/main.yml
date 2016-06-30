@@ -1,0 +1,22 @@
+---
+
+- name: generate fstab output
+  register: s
+  command: genfstab -pU /mnt
+
+- name: update fstab file
+  blockinfile: block={{ s.stdout }} dest=/mnt/etc/fstab
+
+- name: uncomment locales
+  lineinfile: backrefs=yes
+              dest=/mnt/etc/locale.gen
+              line=\1
+              regexp="^#({{ locale }}.{{ charset }} {{ charset }})"
+  register: lif
+
+- name: generate locales
+  command: locale-gen
+  when: lif | changed
+
+- name: set locale
+  lineinfile: create=yes dest=/mnt/etc/locale.conf line=LANG={{ locale }}.{{ charset }}

@@ -1,0 +1,34 @@
+---
+
+- block:
+
+  - block:
+
+    - name: set partitions for btrfs filesystem
+      set_fact:
+        root: "{{ device }}"
+
+    when: filesystem == 'btrfs'
+
+  - block:
+    - name: set partitions
+      set_fact:
+        root: "{{ device }}1"
+
+    - name: zap gpt and mbr data structures and create new partitions for bios firmware
+      command: sgdisk -N 1 {{ device }} creates={{ root }}
+
+    when: filesystem != 'btrfs'
+
+  when: firmware == 'bios'
+
+- block:
+  - name: set partitions for uefi firmware
+    set_fact:
+      boot: "{{ device }}1"
+      root: "{{ device }}2"
+
+  - name: zap gpt and mbr data structures and create new partitions for uefi firmware
+    command: sgdisk -n 1:0:+100M -t 1:ef00 -N 2 {{ device }} creates={{ root }}
+
+  when: firmware == 'uefi'

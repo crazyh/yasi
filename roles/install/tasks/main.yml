@@ -1,0 +1,4 @@
+---
+
+- name: install base packages
+  command: creates=/mnt/etc/pacman.d/mirrorlist pacstrap /mnt base

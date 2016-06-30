@@ -1,0 +1,13 @@
+---
+
+- name: mount root file system
+  mount: fstype={{ filesystem }} name=/mnt src={{ root }} state=mounted
+  when: root is defined
+
+- name: mount boot file system for bios firmware
+  mount: fstype=ext4 name=/mnt/boot src={{ boot }} state=mounted
+  when: boot is defined and firmware == 'bios'
+
+- name: mount boot file system for uefi firmware
+  mount: fstype=vfat name=/mnt/boot src={{ boot }} state=mounted
+  when: boot is defined and firmware == 'uefi'

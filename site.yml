@@ -15,6 +15,7 @@
     - mirror
     - install
     - configure
+    - bootloader
 
   vars:
     charset: UTF-8

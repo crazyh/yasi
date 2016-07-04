@@ -25,34 +25,27 @@
     - name: "device"
       default: /dev/sda
       private: no
-      prompt: "Device"
 
     - name: "filesystem"
       default: btrfs
       private: no
-      prompt: "File system"
 
     - name: "firmware"
       default: auto
       private: no
-      prompt: "Firmware"
 
     - name: "mirrorlist"
       default: https://www.archlinux.org/mirrorlist/all/
       private: no
-      prompt: "Mirror list"
 
     # - name: "packages"
     #   default: base
     #   private: no
-    #   prompt: "Packages"
 
     - name: "timezone"
       default: UTC
       private: no
-      prompt: "Time zone"
 
     - name: "wipe"
       default: "no"
       private: no
-      prompt: "Wipe"

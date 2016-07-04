@@ -25,3 +25,6 @@
 
 - name: set time zone
   file: path=/mnt/etc/localtime src=/usr/share/zoneinfo/{{ timezone }} state=link
+
+- name: create new initial ram disk
+  command: creates=/mnt/boot/initramfs-linux.img arch-chroot /mnt mkinitcpio -p linux

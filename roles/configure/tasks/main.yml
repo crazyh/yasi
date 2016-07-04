@@ -1,5 +1,7 @@
 ---
 
+# TODO: add task with no_log to check if genfstab already finished
+
 - name: generate fstab output
   register: s
   command: genfstab -pU /mnt

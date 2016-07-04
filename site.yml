@@ -30,7 +30,7 @@
     - name: "filesystem"
       default: btrfs
       private: no
-      prompt: "Filesystem"
+      prompt: "File system"
 
     - name: "firmware"
       default: auto
@@ -40,12 +40,17 @@
     - name: "mirrorlist"
       default: https://www.archlinux.org/mirrorlist/all/
       private: no
-      prompt: "Mirrorlist"
+      prompt: "Mirror list"
 
     # - name: "packages"
     #   default: base
     #   private: no
     #   prompt: "Packages"
+
+    - name: "timezone"
+      default: UTC
+      private: no
+      prompt: "Time zone"
 
     - name: "wipe"
       default: "no"

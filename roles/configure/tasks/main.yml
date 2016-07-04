@@ -20,3 +20,6 @@
 
 - name: set locale
   lineinfile: create=yes dest=/mnt/etc/locale.conf line=LANG={{ locale }}.{{ charset }}
+
+- name: set time zone
+  file: path=/mnt/etc/localtime src=/usr/share/zoneinfo/{{ timezone }} state=link

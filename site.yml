@@ -33,6 +33,7 @@
     - name: "firmware"
       default: auto
       private: no
+      prompt: "firmware (auto, bios, uefi)"
 
     - name: "mirrorlist"
       default: https://www.archlinux.org/mirrorlist/all/
@@ -49,3 +50,4 @@
     - name: "wipe"
       default: "no"
       private: no
+

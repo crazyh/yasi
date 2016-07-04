@@ -6,3 +6,7 @@
 - name: install btrfs progs
   command: creates=/usr/bin/btrfs pacstrap /mnt core/btrfs-progs
   when: filesystem == "btrfs"
+
+- name: install syslinux
+  command: creates=/usr/bin/syslinux pacstrap /mnt core/syslinux
+  when: firmware == "bios"

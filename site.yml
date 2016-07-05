@@ -44,9 +44,8 @@
       default: https://www.archlinux.org/mirrorlist/all/
       private: no
 
-    # - name: "packages"
-    #   default: base
-    #   private: no
+    - name: "packages"
+      private: no
 
     - name: "timezone"
       default: UTC

@@ -1,3 +1,5 @@
 ---
 
-# Read https://wiki.archlinux.org/index.php/syslinux and run syslinux-install_update here
+- name: install bootloader
+  command: creates=/mnt/boot/syslinux/SYSLINUX_AUTOUPDATE
+           arch-chroot /mnt syslinux-install_update -i

@@ -1,9 +1,9 @@
 ---
 
-- name: unmount boot file system
+- name: unmount boot filesystem
   mount: fstype="" name=/mnt/boot src="" state=unmounted
 
-- name: unmount root file system
+- name: unmount root filesystem
   mount: fstype="" name=/mnt src="" state=unmounted
 
 - name: wipe signatures from device

@@ -34,6 +34,7 @@
     - name: filesystem
       default: btrfs
       private: no
+      prompt: filesystem (btrfs, ext4)
 
     - name: firmware
       default: auto

@@ -8,7 +8,7 @@ It based on boring Arch Linux [installation guide](https://wiki.archlinux.org/in
 Testing
 -------
 
-Tested: archlinux-2016.06.01-dual.iso
+Tested: [archlinux-2016.06.01-dual.iso](https://www.archlinux.org/releng/releases/2016.06.01/)
 
 TODO: add information about host and Ansible version
 

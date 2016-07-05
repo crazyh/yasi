@@ -5,10 +5,10 @@
 - name: generate fstab output
   changed_when: false
   command: genfstab -pU /mnt
-  register: s
+  register: c
 
 - name: update fstab file
-  blockinfile: block={{ s.stdout }} dest=/mnt/etc/fstab
+  blockinfile: block={{ c.stdout }} dest=/mnt/etc/fstab
 
 - name: uncomment locales
   lineinfile: backrefs=yes

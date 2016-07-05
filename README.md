@@ -3,7 +3,7 @@ yasi
 
 yasi is yet another stupid installer for [Arch Linux](https://www.archlinux.org/) built on top of [Ansible](https://github.com/ansible/ansible) playbook.
 
-It based on boring Arch Linux [installation guide](https://wiki.archlinux.org/index.php/installation_guide) and allows to get a minimal bootable ready-to-use system in several minutes.
+It based on boring Arch Linux [installation guide](https://wiki.archlinux.org/index.php/installation_guide) and allows to get a minimal bootable ready-to-use Arch Linux installation in several minutes.
 
 Testing
 -------

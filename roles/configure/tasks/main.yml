@@ -3,8 +3,9 @@
 # TODO: add task with no_log to check if genfstab already finished
 
 - name: generate fstab output
-  register: s
+  changed_when: false
   command: genfstab -pU /mnt
+  register: s
 
 - name: update fstab file
   blockinfile: block={{ s.stdout }} dest=/mnt/etc/fstab

@@ -4,9 +4,17 @@
   command: creates=/mnt/etc/pacman.d/mirrorlist pacstrap /mnt base
 
 - name: install btrfs progs
-  command: creates=/usr/bin/btrfs pacstrap /mnt core/btrfs-progs
+  command: creates=/usr/bin/btrfs pacstrap /mnt btrfs-progs
   when: filesystem == "btrfs"
 
-- name: install syslinux
-  command: creates=/usr/bin/syslinux pacstrap /mnt core/syslinux
+- block:
+
+  - name: install grub
+    command: creates=/usr/bin/grub-install pacstrap /mnt grub
+    when: bootloader == "grub"
+
+  - name: install syslinux
+    command: creates=/usr/bin/syslinux pacstrap /mnt syslinux
+    when: bootloader == "syslinux"
+
   when: firmware == "bios"

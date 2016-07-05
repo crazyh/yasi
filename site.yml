@@ -22,6 +22,11 @@
     locale: en_US
 
   vars_prompt:
+    - name: "bootloader"
+      default: syslinux
+      private: no
+      prompt: "bootloader (grub, syslinux)"
+
     - name: "device"
       default: /dev/sda
       private: no

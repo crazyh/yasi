@@ -3,11 +3,11 @@
 - block:
 
   - name: check efi firmware
-    register: p
+    register: s
     stat: path=/sys/firmware/efi
 
   - name: set firmware interface type
     set_fact:
-      firmware: "{{ { false: 'bios', true: 'uefi' }[p.stat.exists] }}"
+      firmware: "{{ { false: 'bios', true: 'uefi' }[s.stat.exists] }}"
 
   when: firmware is not defined or firmware == 'auto'

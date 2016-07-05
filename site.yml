@@ -22,36 +22,37 @@
     locale: en_US
 
   vars_prompt:
-    - name: "bootloader"
-      default: syslinux
+    - name: bootloader
+      default: auto
       private: no
-      prompt: "bootloader (grub, syslinux)"
+      prompt: bootloader (auto, grub, syslinux)
 
-    - name: "device"
+    - name: device
       default: /dev/sda
       private: no
 
-    - name: "filesystem"
+    - name: filesystem
       default: btrfs
       private: no
 
-    - name: "firmware"
+    - name: firmware
       default: auto
       private: no
-      prompt: "firmware (auto, bios, uefi)"
+      prompt: firmware (auto, bios, uefi)
 
-    - name: "mirrorlist"
+    - name: mirrorlist
       default: https://www.archlinux.org/mirrorlist/all/
       private: no
 
-    - name: "packages"
+    - name: packages
       private: no
 
-    - name: "timezone"
+    - name: password
+
+    - name: timezone
       default: UTC
       private: no
 
-    - name: "wipe"
+    - name: wipe
       default: "no"
       private: no
-

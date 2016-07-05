@@ -1,5 +1,26 @@
 ---
 
-- name: install bootloader
+- name: install grub bootloader
+  command: creates=/mnt/boot/grub/grubenv
+           arch-chroot /mnt grub-install {{ device }}
+  when: bootloader == "grub"
+
+- name: make grub config
+  changed_when: false
+  command: arch-chroot /mnt grub-mkconfig
+  register: c
+  when: bootloader == "grub"
+
+- name: update grub config
+  copy: content={{ c.stdout }} dest=/mnt/boot/grub/grub.cfg
+  when: bootloader == "grub"
+
+- name: install syslinux bootloader
   command: creates=/mnt/boot/syslinux/SYSLINUX_AUTOUPDATE
            arch-chroot /mnt syslinux-install_update -i
+  when: bootloader == "syslinux"
+
+# TODO: update syslinux config
+
+# - name: update syslinux bootloader config
+#   when: bootloader == "syslinux"

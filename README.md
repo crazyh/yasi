@@ -15,5 +15,5 @@ TODO: add information about host and Ansible version
 Thanks
 ------
 
-- [Judd Vinet](https://github.com/jvinet), Aaron Griffin and [others](https://www.archlinux.org/people/developers/) for Arch Linux
+- [Judd Vinet](https://github.com/jvinet), [Aaron Griffin](https://www.archlinux.org/people/developers/#aaron) and [others](https://www.archlinux.org/people/developers/) for Arch Linux
 - [Michael DeHaan](https://github.com/mpdehaan) and Ansible contributors for Ansible

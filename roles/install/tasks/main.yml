@@ -10,11 +10,11 @@
 - block:
 
   - name: install grub
-    command: creates=/usr/bin/grub-install pacstrap /mnt grub
+    command: creates=/mnt/usr/bin/grub-install pacstrap /mnt grub
     when: bootloader == "grub"
 
   - name: install syslinux
-    command: creates=/usr/bin/syslinux pacstrap /mnt syslinux
+    command: creates=/mnt/usr/bin/syslinux pacstrap /mnt syslinux
     when: bootloader == "syslinux"
 
   when: firmware == "bios"

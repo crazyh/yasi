@@ -5,13 +5,14 @@
   roles:
     - bootstrap
     - { role: wipe, tags: [ "unsafe" ], when: "wipe | bool" }
-    - setup
+    - { role: setup, what: firmware }
     - timedate
     - { role: partition, tags: [ "unsafe" ] }
     - { role: filesystem, tags: [ "unsafe" ],
         when: "boot is defined or root is defined" }
     - { role: mount,
         when: "boot is defined or root is defined" }
+    - { role: setup, what: bootloader }
     - mirror
     - install
     - configure
@@ -49,6 +50,7 @@
       private: no
 
     - name: password
+      default: password
 
     - name: timezone
       default: UTC

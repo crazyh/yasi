@@ -10,4 +10,39 @@
     set_fact:
       firmware: "{{ { false: 'bios', true: 'uefi' }[p.stat.exists] }}"
 
-  when: firmware is not defined or firmware == 'auto'
+  when: what == "firmware" and firmware is not defined or firmware == "auto"
+
+- block:
+
+  - block:
+
+    - name: check grub bootloader
+      register: p
+      stat: path=/mnt/boot/grub/grub.cfg
+
+    - name: set bootloader to grub
+      set_fact:
+        bootloader: grub
+      when: p.stat.exists
+
+    when: bootloader is not defined or bootloader == "auto"
+
+  - block:
+
+    - name: check syslinux bootloader
+      register: p
+      stat: path=/mnt/boot/syslinux/syslinux.cfg
+
+    - name: set bootloader to syslinux
+      set_fact:
+        bootloader: syslinux
+      when: p.stat.exists
+
+    when: bootloader is not defined or bootloader == "auto"
+
+  - name: set bootloader to default
+    set_fact:
+      bootloader: grub
+    when: bootloader is not defined or bootloader == "auto"
+
+  when: what == "bootloader"

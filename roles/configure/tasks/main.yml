@@ -30,6 +30,11 @@
 - name: create new initial ram disk
   command: creates=/mnt/boot/initramfs-linux.img arch-chroot /mnt mkinitcpio -p linux
 
+- name: check root password
+  changed_when: false
+  register: s
+  shell: arch-chroot /mnt passwd -S | cut -d ' ' -f 2
+
 - name: set root password
-  shell: creates=/tmp/b12ecd65-8657-4409-a06f-43abd7e978d4
-         printf "{{ password }}\n{{ password }}" | arch-chroot /mnt passwd && touch /tmp/b12ecd65-8657-4409-a06f-43abd7e978d4
+  shell: printf "{{ password }}\n{{ password }}" | arch-chroot /mnt passwd
+  when: s.stdout == "NP"

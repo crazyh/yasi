@@ -52,6 +52,9 @@
     - name: password
       default: password
 
+    - name: reboot
+      default: "no"
+
     - name: timezone
       default: UTC
       private: no

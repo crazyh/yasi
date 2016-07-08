@@ -54,6 +54,7 @@
 
     - name: reboot
       default: "no"
+      private: no
 
     - name: timezone
       default: UTC

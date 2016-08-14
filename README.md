@@ -12,7 +12,7 @@ Usage
 - Download, burn and boot Arch Linux somewhere, enable SSH and get IP address
 - Run `ansible-playbook -i '<ip-address>,' site.yml` locally, answer questions and be patient
 
-Supported options (can be passed to ansible-playbook via `-e` or `-e @path/to/option/file`):
+Supported options (can be passed to ansible-playbook via `-e option=value` or `-e @path/to/option/file`):
 
 TODO: add description and usage notes for humans
 

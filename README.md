@@ -33,7 +33,7 @@ TODO: add description and usage notes for humans
 - timezone (default: UTC)
 - wipe (default: no)
 
-This playbook is idempotent so you can break and run this playbook again as many as you want but note that changing of options after the first run usually is a bad idea (use the same options or use wipe=yes).
+This playbook is idempotent so you can break and run the playbook again as many as you want but note that changing of options after the first run usually is a bad idea (use the same options or use wipe=yes).
 
 Tested
 ------

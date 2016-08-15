@@ -8,13 +8,13 @@ It is based on boring Arch Linux [installation guide](https://wiki.archlinux.org
 Usage
 -----
 
-Scenario 1:
+### Scenario 1
 
 - Install Ansible locally
 - Download, burn and boot Arch Linux somewhere, enable SSH and get IP address
 - Run `ansible-playbook -i <ip-address>, site.yml` locally, answer questions and be patient
 
-Scenario 2:
+### Scenario 2
 
 TODO: add local installation scenario
 
@@ -33,18 +33,18 @@ TODO: add description and usage notes for humans
 - timezone (default: UTC)
 - wipe (default: no)
 
-This playbook is idempotent so you can break and run the playbook again as many as you want but note that changing of options after the first run usually is a bad idea (use the same options or use wipe=yes).
+This playbook is idempotent so you can stop and run the playbook again as many as you want but note that changing of initial options after the first run usually is a bad idea (use the same options every time, use `auto` or use `wipe=yes`).
 
 Tested
 ------
 
-Host:
+### Host
 
 - Ansible 2.1.0.0
 - Fedora 23
 - Python 2.7.11
 
-Target:
+### Target
 
 - [archlinux-2016.06.01-dual.iso](https://www.archlinux.org/releng/releases/2016.06.01/)
 - [archlinux-2016.08.01-dual.iso](https://www.archlinux.org/releng/releases/2016.08.01/) (EFI)

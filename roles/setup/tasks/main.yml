@@ -40,9 +40,4 @@
 
     when: bootloader is not defined or bootloader == "auto"
 
-  - name: set bootloader to default
-    set_fact:
-      bootloader: grub
-    when: bootloader is not defined or bootloader == "auto"
-
   when: what == "bootloader"

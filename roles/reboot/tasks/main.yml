@@ -1,3 +1,10 @@
 ---
 
-# TODO: unmount partitions and reboot
+- name: unmount boot filesystem
+  mount: fstype=false name=/mnt/boot src=false state=unmounted
+  when: boot is defined
+
+- name: unmount root filesystem
+  mount: fstype=false name=/mnt src=false state=unmounted
+  when: root is defined
+  

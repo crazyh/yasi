@@ -52,7 +52,7 @@ Tested
 
 ### Target
 
-- [archlinux-2016.06.01-dual.iso](https://www.archlinux.org/releng/releases/2016.06.01/)
+- [archlinux-2016.06.01-dual.iso](https://www.archlinux.org/releng/releases/2016.06.01/) (BIOS)
 - [archlinux-2016.08.01-dual.iso](https://www.archlinux.org/releng/releases/2016.08.01/) (EFI)
 
 Thanks

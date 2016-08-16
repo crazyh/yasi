@@ -5,14 +5,14 @@ yasi is yet another stupid installer for [Arch Linux](https://www.archlinux.org/
 
 It is based on boring Arch Linux [installation guide](https://wiki.archlinux.org/index.php/installation_guide) and allows to get a minimal bootable ready-to-use Arch Linux installation in several minutes.
 
-Usage
------
+Getting started
+---------------
 
 ### Remote scenario
 
-- Install Ansible locally
+- Install Ansible
 - Download, burn and boot Arch Linux somewhere, enable SSH and get IP address
-- Run `ansible-playbook -i <ip-address>, site.yml` locally, answer questions and be patient
+- Run `ansible-playbook -i <ip-address>, site.yml`, answer questions and be patient
 
 ### Local scenario
 

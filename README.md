@@ -8,17 +8,19 @@ It is based on boring Arch Linux [installation guide](https://wiki.archlinux.org
 Usage
 -----
 
-### Scenario 1
+### Remote scenario
 
 - Install Ansible locally
 - Download, burn and boot Arch Linux somewhere, enable SSH and get IP address
 - Run `ansible-playbook -i <ip-address>, site.yml` locally, answer questions and be patient
 
-### Scenario 2
+### Local scenario
 
 TODO: add local installation scenario
 
-Supported options (can be passed to ansible-playbook via `-e option=value` or `-e @path/to/option/file` to supress questions. See `man ansible-playbook` for more details):
+### Supported options
+
+Options can be passed to ansible-playbook via `-e option=value` or `-e @path/to/option/file` to supress prompts. See `man ansible-playbook` for more details.
 
 TODO: add description and usage notes for humans
 
@@ -34,6 +36,10 @@ TODO: add description and usage notes for humans
 - wipe (default: no)
 
 This playbook is idempotent so you can stop and run the playbook again as many as you want but note that changing of initial options after the first run usually is a bad idea (use the same options every time, use `auto` or use `wipe=yes`).
+
+### Examples
+
+TODO
 
 Tested
 ------

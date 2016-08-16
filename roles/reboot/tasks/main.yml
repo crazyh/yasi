@@ -8,3 +8,6 @@
   mount: fstype=false name=/mnt src=false state=unmounted
   when: root is defined
   
+- name: reboot
+  command: reboot
+  when: reboot | bool

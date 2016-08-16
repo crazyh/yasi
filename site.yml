@@ -17,7 +17,7 @@
     - install
     - configure
     - { role: bootloader, tags: [ "unsafe" ] }
-    - { role: reboot, when: "reboot | bool" }
+    - reboot
 
   vars:
     charset: UTF-8

@@ -29,7 +29,7 @@ TODO: add description and usage notes for humans
 - filesystem (default: btrfs)
 - firmware (default: auto)
 - mirrorlist (default: https://www.archlinux.org/mirrorlist/all/)
-- packages
+- packages (default: none)
 - password (default: password)
 - reboot (default: no)
 - timezone (default: UTC)

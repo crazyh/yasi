@@ -4,7 +4,7 @@
 
 - name: generate fstab output
   changed_when: false
-  command: genfstab -pU /mnt
+  command: genfstab -U /mnt
   register: c
 
 - name: update fstab file

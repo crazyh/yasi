@@ -18,3 +18,9 @@
     when: bootloader == "syslinux"
 
   when: firmware == "bios"
+
+# TODO: think about checking if packages are installed
+
+- name: install additional packages
+  command: pacstrap /mnt {{ packages }}
+  when: packages is defined and packages != ""

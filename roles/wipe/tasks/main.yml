@@ -6,5 +6,7 @@
 - name: unmount root filesystem
   mount: fstype=false name=/mnt src=false state=unmounted
 
+# TODO: check if device contains partitions or filesystem
+
 - name: wipe signatures from device
   shell: blkid -o device {{ device }}* | sort -nr | xargs wipefs -a

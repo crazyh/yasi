@@ -5,7 +5,7 @@
   when: boot is defined and firmware == "bios"
 
 - name: make boot filesystem for uefi firmware
-  filesystem2: dev={{ boot }} fstype=vfat
+  filesystem2: dev={{ boot }} fstype=fat
   when: boot is defined and firmware == "uefi"
 
 - name: make root filesystem

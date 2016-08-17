@@ -2,29 +2,50 @@
 
 - block:
 
-  - name: install grub bootloader
-    command: creates=/mnt/boot/grub/grubenv
-             arch-chroot /mnt grub-install {{ device }}
+  - block:
 
-  - name: make grub config
-    changed_when: false
-    command: arch-chroot /mnt grub-mkconfig
-    register: c
+    - name: install grub bootloader
+      command: creates=/mnt/boot/grub/grubenv
+               arch-chroot /mnt grub-install {{ device }}
 
-  - name: update grub config
-    copy: content={{ c.stdout }} dest=/mnt/boot/grub/grub.cfg
+    - name: make grub config
+      changed_when: false
+      command: arch-chroot /mnt grub-mkconfig
+      register: c
 
-  when: bootloader == "grub"
+    - name: update grub config
+      copy: content={{ c.stdout }} dest=/mnt/boot/grub/grub.cfg
+
+    when: bootloader == "grub"
+
+  - block:
+
+    - name: install syslinux bootloader
+      command: creates=/mnt/boot/syslinux/SYSLINUX_AUTOUPDATE
+               arch-chroot /mnt syslinux-install_update -i
+
+    # TODO: update syslinux bootloader config
+
+    - name: update syslinux bootloader config
+      debug: msg=TODO
+
+    when: bootloader == "syslinux"
+
+  when: firmware == "bios"
 
 - block:
 
-  - name: install syslinux bootloader
-    command: creates=/mnt/boot/syslinux/SYSLINUX_AUTOUPDATE
-             arch-chroot /mnt syslinux-install_update -i
+  # TODO: it would be good to add more strong check for status of installed
+  # systemd-boot and support update
 
-  # TODO: update syslinux bootloader config
+  - name: check status of installed systemd-boot and efi variables
+    changed_when: false
+    failed_when: false
+    register: s
+    shell: "arch-chroot /mnt bootctl status | grep 'Title: Linux Boot Manager'"
 
-  - name: update syslinux bootloader config
-    debug: msg=TODO
+  - name: install systemd-boot to esp and efi variables
+    command: arch-chroot /mnt bootctl install
+    when: s | failed
 
-  when: bootloader == "syslinux"
+  when: firmware == "uefi"

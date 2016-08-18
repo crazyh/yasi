@@ -9,4 +9,4 @@
   when: f.matched == 0
 
 - name: enable servers in pacman mirrorlist
-  replace: dest=/etc/pacman.d/mirrorlist regexp="^#(?!\s)"
+  replace: dest=/etc/pacman.d/mirrorlist regexp='^#(?!\s)'

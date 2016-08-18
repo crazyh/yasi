@@ -1,5 +1,7 @@
 ---
 
+# TODO: support bootloader selection when firmware == "uefi"
+
 - block:
 
   - block:
@@ -47,5 +49,15 @@
   - name: install systemd-boot to esp and efi variables
     command: arch-chroot /mnt bootctl install
     when: s | failed
+
+  - name: create bootloader entry
+    command: creates=/mnt/boot/loader/entries/arch.conf
+             install -D /mnt/usr/share/systemd/bootctl/arch.conf /mnt/boot/loader/entries/arch.conf
+
+  - name: update bootloader entry root
+    replace: dest=/mnt/boot/loader/entries/arch.conf regexp=(root=PARTUUID=).*?\s replace='\1TODO '
+
+  - name: update bootloader entry rootfstype
+    replace: dest=/mnt/boot/loader/entries/arch.conf regexp=(rootfstype=).*?\s replace='\1{{ filesystem }} '
 
   when: firmware == "uefi"

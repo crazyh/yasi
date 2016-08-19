@@ -29,6 +29,6 @@
       root: "{{ device }}2"
 
   - name: zap gpt and mbr data structures and create new partitions for uefi firmware
-    command: sgdisk -n 1:0:+100M -t 1:ef00 -N 2 {{ device }} creates={{ root }}
+    command: sgdisk -n 1:0:{{ ef00_end }} -t 1:ef00 -N 2 {{ device }} creates={{ root }}
 
   when: firmware == "uefi"

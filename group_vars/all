@@ -2,3 +2,4 @@
 
 ansible_python_interpreter: /usr/bin/python2
 ansible_user: root
+ef00_end: +100M

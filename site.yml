@@ -12,13 +12,12 @@
         when: "boot is defined or root is defined" }
     - { role: mount,
         when: "boot is defined or root is defined" }
-    - { role: setup, what: bootloader }
     - mirror
     - install
     - configure
     # TODO: support none bootloader
-    - { role: bootloader, tags: [ "unsafe" ] }
-    - reboot
+    # - { role: bootloader, tags: [ "unsafe" ] }
+    # - reboot
 
   vars:
     charset: UTF-8

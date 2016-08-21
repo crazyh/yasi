@@ -1,26 +1,14 @@
 ---
 
 - name: install base packages
-  command: creates=/mnt/etc/pacman.d/mirrorlist pacstrap /mnt base
+  command: creates=/mnt/etc/pacman.d/mirrorlist pacstrap /mnt
 
 - name: install btrfs progs
-  command: creates=/usr/bin/btrfs pacstrap /mnt btrfs-progs
+  command: creates=/mnt/usr/bin/btrfs pacstrap /mnt btrfs-progs
   when: filesystem == "btrfs"
-
-- block:
-
-  - name: install grub
-    command: creates=/mnt/usr/bin/grub-install pacstrap /mnt grub
-    when: bootloader == "grub"
-
-  - name: install syslinux
-    command: creates=/mnt/usr/bin/syslinux pacstrap /mnt syslinux
-    when: bootloader == "syslinux"
-
-  when: firmware == "bios"
 
 # TODO: think about checking if packages are installed
 
 - name: install additional packages
   command: pacstrap /mnt {{ packages }}
-  when: packages is defined and packages != ""
+  when: packages != ""

@@ -1,78 +1,132 @@
 ---
 
-# TODO: support bootloader selection when firmware == "uefi"
+- block:
+
+  - name: check grub bootloader
+    register: p
+    stat: path=/mnt/boot/grub/grub.cfg
+
+  - name: set bootloader to grub
+    set_fact:
+      bootloader: grub
+    when: p.stat.exists
+
+  when: bootloader == "auto"
 
 - block:
 
-  # FIXME: bootloader assertion
+  - name: check syslinux bootloader
+    register: p
+    stat: path=/mnt/boot/syslinux/syslinux.cfg
 
-  - name: assert bootloader for bios firmware
-    assert: { that: "bootloader == 'auto' or bootloader == 'grub' or bootloader == 'syslinux'" }
+  - name: set bootloader to syslinux
+    set_fact:
+      bootloader: syslinux
+    when: p.stat.exists
 
-  - block:
-
-    - name: install grub bootloader
-      command: creates=/mnt/boot/grub/grubenv
-               arch-chroot /mnt grub-install {{ device }}
-
-    - name: make grub config
-      changed_when: false
-      command: arch-chroot /mnt grub-mkconfig
-      register: c
-
-    - name: update grub config
-      copy: content={{ c.stdout }} dest=/mnt/boot/grub/grub.cfg
-
-    when: bootloader == "grub"
-
-  - block:
-
-    - name: install syslinux bootloader
-      command: creates=/mnt/boot/syslinux/SYSLINUX_AUTOUPDATE
-               arch-chroot /mnt syslinux-install_update -i
-
-    # TODO: update syslinux bootloader config
-
-    - name: update syslinux bootloader config
-      debug: msg=TODO
-
-    when: bootloader == "syslinux"
-
-  when: firmware == "bios"
+  when: bootloader == "auto"
 
 - block:
 
-  - name: assert bootloader for uefi firmware
-    assert: { that: "bootloader == 'auto' or bootloader == 'systemd-boot'" }
+  - name: check systemd-boot bootloader
+    register: p
+    stat: path=/mnt/boot/loader/loader.conf
+
+  - name: set bootloader to systemd-boot
+    set_fact:
+      bootloader: systemd-boot
+    when: p.stat.exists
+
+  when: bootloader == "auto"
+
+- block:
+
+  - name: set bootloader to syslinux
+    set_fact:
+      bootloader: syslinux
+    when: firmware == "bios"
+
+  when: bootloader == "auto"
+
+- block:
+
+  - name: set bootloader to systemd-boot
+    set_fact:
+      bootloader: systemd-boot
+    when: firmware == "uefi"
+
+  when: bootloader == "auto"
+
+- name: assert bootloader for bios firmware
+  assert:
+    that: "not (bootloader == 'systemd-boot' and firmware == 'bios')"
+
+- name: install grub
+  command: creates=/mnt/usr/bin/grub-install pacstrap /mnt grub
+  when: bootloader == "grub"
+
+- name: install syslinux
+  command: creates=/mnt/usr/bin/syslinux pacstrap /mnt syslinux
+  when: bootloader == "syslinux"
+
+- block:
+
+  - name: install grub bootloader
+    command: creates=/mnt/boot/grub/grubenv
+             arch-chroot /mnt grub-install {{ device }}
+
+  - name: make grub config
+    changed_when: false
+    command: arch-chroot /mnt grub-mkconfig
+    register: c
+
+  - name: update grub config
+    copy: content={{ c.stdout }} dest=/mnt/boot/grub/grub.cfg
+
+  when: bootloader == "grub"
+
+- block:
+
+  - name: install syslinux bootloader
+    command: creates=/mnt/boot/syslinux/SYSLINUX_AUTOUPDATE
+             arch-chroot /mnt syslinux-install_update -i
+
+  - name: update syslinux bootloader config
+    debug: msg="TODO: update syslinux bootloader config"
+
+  when: bootloader == "syslinux"
+
+- block:
 
   # TODO: it would be good to add more strong check for status of installed
   # systemd-boot and support update
 
-  - name: check status of installed systemd-boot and efi variables
+  - name: check systemd-boot status
     changed_when: false
     failed_when: false
     register: s
     shell: "arch-chroot /mnt bootctl status | grep 'Title: Linux Boot Manager'"
 
-  - name: install systemd-boot to esp and efi variables
+  - name: install systemd-boot bootloader
     command: arch-chroot /mnt bootctl install
     when: s | failed
 
-  - name: create bootloader entry
+  - name: create systemd-boot entry
     command: creates=/mnt/boot/loader/entries/arch.conf
              install -D /mnt/usr/share/systemd/bootctl/arch.conf /mnt/boot/loader/entries/arch.conf
 
-  - name: get root uuid
+  - name: detect root uuid
     changed_when: false
     register: s
     shell: blkid -o value -s PARTUUID {{ root }}
 
-  - name: update bootloader entry root
+  - name: update systemd-boot entry root
     replace: dest=/mnt/boot/loader/entries/arch.conf regexp=(root=PARTUUID=).*?\s+ replace='\g<1>{{ s.stdout }} '
 
-  - name: update bootloader entry rootfstype
+  - name: update systemd-boot entry rootfstype
     replace: dest=/mnt/boot/loader/entries/arch.conf regexp=(rootfstype=).*?\s+ replace='\1{{ filesystem }} '
 
-  # TODO: check esp/loader/loader.conf
+  - name: update syslinux bootloader config
+    debug: msg="TODO: update esp/loader/loader.conf"
 
-  when: firmware == "uefi"
+  when: bootloader == "systemd-boot"

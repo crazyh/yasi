@@ -11,36 +11,3 @@
       firmware: "{{ { false: 'bios', true: 'uefi' }[p.stat.exists] }}"
 
   when: what == "firmware" and firmware is not defined or firmware == "auto"
-
-- block:
-
-  # FIXME: move bootloader checking tasks to bootloader role,
-  # remove bootloader installation tasks from install role
-
-  - block:
-
-    - name: check grub bootloader
-      register: p
-      stat: path=/mnt/boot/grub/grub.cfg
-
-    - name: set bootloader to grub
-      set_fact:
-        bootloader: grub
-      when: p.stat.exists
-
-    when: bootloader is not defined or bootloader == "auto"
-
-  - block:
-
-    - name: check syslinux bootloader
-      register: p
-      stat: path=/mnt/boot/syslinux/syslinux.cfg
-
-    - name: set bootloader to syslinux
-      set_fact:
-        bootloader: syslinux
-      when: p.stat.exists
-
-    when: bootloader is not defined or bootloader == "auto"
-
-  when: what == "bootloader"

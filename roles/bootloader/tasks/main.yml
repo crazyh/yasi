@@ -4,6 +4,11 @@
 
 - block:
 
+  # FIXME: bootloader assertion
+
+  - name: assert bootloader for bios firmware
+    assert: { that: "bootloader == 'auto' || bootloader == 'grub' || bootloader == 'syslinux'" }
+
   - block:
 
     - name: install grub bootloader
@@ -37,6 +42,9 @@
 
 - block:
 
+  - name: assert bootloader for uefi firmware
+    assert: { that: "bootloader == 'auto' || bootloader == 'systemd-boot'" }
+
   # TODO: it would be good to add more strong check for status of installed
   # systemd-boot and support update
 
@@ -64,5 +72,7 @@
 
   - name: update bootloader entry rootfstype
     replace: dest=/mnt/boot/loader/entries/arch.conf regexp=(rootfstype=).*?\s+ replace='\1{{ filesystem }} '
+
+  # TODO: check esp/loader/loader.conf
 
   when: firmware == "uefi"

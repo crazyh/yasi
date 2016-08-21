@@ -10,4 +10,5 @@
   
 - name: reboot
   command: reboot
+  poll: 0
   when: reboot | bool

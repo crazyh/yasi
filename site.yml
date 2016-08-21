@@ -18,7 +18,7 @@
     - configure
     # TODO: support none bootloader
     - { role: bootloader, tags: [ "unsafe" ] }
-    # - reboot
+    - reboot
 
   vars:
     charset: UTF-8

@@ -39,6 +39,8 @@ TODO: think about documentation for role inputs
 
 This playbook is idempotent so you can stop and run the playbook again as many as you want but note that changing of initial options after the first run usually is a bad idea (use the same options every time, use `auto` or use `wipe=yes`).
 
+TODO: install pacaur
+
 ### Cheatsheet (Arch Linux)
 
 TODO: support/describe password/keyless authentication

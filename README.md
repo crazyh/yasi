@@ -24,6 +24,8 @@ Options can be passed to ansible-playbook via `-e option=value` or `-e @path/to/
 
 TODO: add description and usage notes for humans
 
+TODO: think about documentation for role inputs
+
 - bootloader (default: auto)
 - device (default: /dev/sda)
 - filesystem (default: btrfs)

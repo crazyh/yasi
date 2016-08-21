@@ -14,6 +14,9 @@
 
 - block:
 
+  # FIXME: move bootloader checking tasks to bootloader role,
+  # remove bootloader installation tasks from install role
+
   - block:
 
     - name: check grub bootloader

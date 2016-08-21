@@ -16,7 +16,7 @@
     - install
     - configure
     # TODO: support none bootloader
-    # - { role: bootloader, tags: [ "unsafe" ] }
+    - { role: bootloader, tags: [ "unsafe" ] }
     # - reboot
 
   vars:

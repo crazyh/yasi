@@ -28,6 +28,15 @@
 
 - block:
 
+  - name: set bootloader to syslinux
+    set_fact:
+      bootloader: syslinux
+    when: firmware == "bios"
+
+  when: bootloader == "auto"
+
+- block:
+
   - name: check systemd-boot bootloader
     register: p
     stat: path=/mnt/boot/loader/loader.conf
@@ -36,15 +45,6 @@
     set_fact:
       bootloader: systemd-boot
     when: p.stat.exists
-
-  when: bootloader == "auto"
-
-- block:
-
-  - name: set bootloader to syslinux
-    set_fact:
-      bootloader: syslinux
-    when: firmware == "bios"
 
   when: bootloader == "auto"
 
@@ -61,11 +61,11 @@
   assert:
     that: "not (bootloader == 'systemd-boot' and firmware == 'bios')"
 
-- name: install grub
+- name: install grub package
   command: creates=/mnt/usr/bin/grub-install pacstrap /mnt grub
   when: bootloader == "grub"
 
-- name: install syslinux
+- name: install syslinux package
   command: creates=/mnt/usr/bin/syslinux pacstrap /mnt syslinux
   when: bootloader == "syslinux"
 
@@ -91,8 +91,8 @@
     command: creates=/mnt/boot/syslinux/SYSLINUX_AUTOUPDATE
              arch-chroot /mnt syslinux-install_update -i
 
-  - name: update syslinux bootloader config
-    debug: msg="TODO: update syslinux bootloader config"
+  - name: update syslinux config
+    debug: msg="TODO"
 
   when: bootloader == "syslinux"
 
@@ -126,7 +126,7 @@
   - name: update systemd-boot entry rootfstype
     replace: dest=/mnt/boot/loader/entries/arch.conf regexp=(rootfstype=).*?\s+ replace='\1{{ filesystem }} '
 
-  - name: update syslinux bootloader config
-    debug: msg="TODO: update esp/loader/loader.conf"
+  - name: update systemd-boot config
+    debug: msg="TODO"
 
   when: bootloader == "systemd-boot"

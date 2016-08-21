@@ -37,20 +37,19 @@ TODO: add description and usage notes for humans
 
 This playbook is idempotent so you can stop and run the playbook again as many as you want but note that changing of initial options after the first run usually is a bad idea (use the same options every time, use `auto` or use `wipe=yes`).
 
-### Cheatsheet
+### Cheatsheet (Arch Linux)
 
 TODO: support/describe password/keyless authentication
 
 - [host  ] `git clone git@github.com:crazyh/yasi.git && cd yasi`
-- [host  ] `pacman -S ansible`
 - [host  ] `curl -O http://mirror.yandex.ru/archlinux/iso/2016.08.01/archlinux-2016.08.01-dual.iso`
-- [host  ] `dd if=archlinux-2016.08.01-dual.iso of=/dev/sdb`
+- [host  ] `dd if=archlinux-2016.08.01-dual.iso of=/dev/sdX`
 - [target]  boot target
-- [target] `printf "password\npassword | passwd`
 - [target] `systemctl start sshd`
+- [target] `printf "password\npassword" | passwd`
 - [target] `ip a s enp0s3`
-- [host  ] `ssh-copy-id root@192.168.1.4`
-- [host  ] `ansible -i 192.168.1.4, site.yml`
+- [host  ] `ssh-copy-id root@target`
+- [host  ] `ansible-playbook -i target, site.yml`
 
 Tested
 ------

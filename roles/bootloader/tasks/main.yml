@@ -7,7 +7,7 @@
   # FIXME: bootloader assertion
 
   - name: assert bootloader for bios firmware
-    assert: { that: "bootloader == 'auto' || bootloader == 'grub' || bootloader == 'syslinux'" }
+    assert: { that: "bootloader == 'auto' or bootloader == 'grub' or bootloader == 'syslinux'" }
 
   - block:
 
@@ -43,7 +43,7 @@
 - block:
 
   - name: assert bootloader for uefi firmware
-    assert: { that: "bootloader == 'auto' || bootloader == 'systemd-boot'" }
+    assert: { that: "bootloader == 'auto' or bootloader == 'systemd-boot'" }
 
   # TODO: it would be good to add more strong check for status of installed
   # systemd-boot and support update

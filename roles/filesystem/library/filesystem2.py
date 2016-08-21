@@ -163,13 +163,13 @@ def main():
             'force_flag' : '-f',
             'fsinfo': 'btrfs',
         },
-        'fat' : {
-            'mkfs' : 'mkfs.fat',
+        'vfat' : {
+            'mkfs' : 'mkfs.vfat',
             'grow' : None,
             'grow_flag' : None,
             'force_flag' : '',
             'fsinfo': None,
-        }
+        },
     }
 
     dev = module.params['dev']

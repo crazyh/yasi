@@ -11,7 +11,7 @@
       bootloader: grub
     when: p.stat.exists
 
-  when: bootloader == "auto"
+  when: bootloader == 'auto'
 
 - block:
 
@@ -24,16 +24,16 @@
       bootloader: syslinux
     when: p.stat.exists
 
-  when: bootloader == "auto"
+  when: bootloader == 'auto'
 
 - block:
 
   - name: set bootloader to syslinux
     set_fact:
       bootloader: syslinux
-    when: firmware == "bios"
+    when: firmware == 'bios'
 
-  when: bootloader == "auto"
+  when: bootloader == 'auto'
 
 - block:
 
@@ -46,16 +46,16 @@
       bootloader: systemd-boot
     when: p.stat.exists
 
-  when: bootloader == "auto"
+  when: bootloader == 'auto'
 
 - block:
 
   - name: set bootloader to systemd-boot
     set_fact:
       bootloader: systemd-boot
-    when: firmware == "uefi"
+    when: firmware == 'uefi'
 
-  when: bootloader == "auto"
+  when: bootloader == 'auto'
 
 - name: assert bootloader for bios firmware
   assert:
@@ -63,11 +63,11 @@
 
 - name: install grub package
   command: creates=/mnt/usr/bin/grub-install pacstrap /mnt grub
-  when: bootloader == "grub"
+  when: bootloader == 'grub'
 
 - name: install syslinux package
   command: creates=/mnt/usr/bin/syslinux pacstrap /mnt syslinux
-  when: bootloader == "syslinux"
+  when: bootloader == 'syslinux'
 
 # TODO: think about checking device boot sectors to check which bootloader is installed
 
@@ -85,7 +85,7 @@
   - name: update grub config
     copy: content={{ c.stdout }} dest=/mnt/boot/grub/grub.cfg
 
-  when: bootloader == "grub"
+  when: bootloader == 'grub'
 
 - block:
 
@@ -95,10 +95,10 @@
 
   - name: update syslinux config
     replace: dest=/mnt/boot/syslinux/syslinux.cfg
-             regexp=(?<=root=).*?(?=\s)
+             regexp=(?<=root=).*?(?=\s|\Z)
              replace={{ boot }}
 
-  when: bootloader == "syslinux"
+  when: bootloader == 'syslinux'
 
 - block:
 
@@ -127,17 +127,17 @@
 
   - name: update systemd-boot entry root
     replace: dest=/mnt/boot/loader/entries/arch.conf
-             regexp=(?<=root=PARTUUID=).*?(?=\s)
-             replace='\g<1>{{ s.stdout }}'
+             regexp=(?<=root=PARTUUID=).*?(?=\s|\Z)
+             replace={{ s.stdout }}
 
   - name: update systemd-boot entry rootfstype
     replace: dest=/mnt/boot/loader/entries/arch.conf
-             regexp=(?<=rootfstype=).*?(?=\s)
+             regexp=(?<=rootfstype=).*?(?=\s|\Z)
              replace='{{ filesystem }}'
 
   - name: update systemd-boot config
     replace: dest=/mnt/boot/loader/loader.conf
-             regexp=^(?<=default\s+).*$
+             regexp=^(?<=default\s)(?:\s*)\w+$
              replace='arch'
 
-  when: bootloader == "systemd-boot"
+  when: bootloader == 'systemd-boot'

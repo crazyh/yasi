@@ -127,6 +127,6 @@
     replace: dest=/mnt/boot/loader/entries/arch.conf regexp=(rootfstype=).*?\s+ replace='\1{{ filesystem }} '
 
   - name: update systemd-boot config
-    debug: msg="TODO"
+    replace: dest=/mnt/boot/loader/loader.conf regexp=^(default\s+).*$ replace='\1arch'
 
   when: bootloader == "systemd-boot"

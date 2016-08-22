@@ -69,6 +69,8 @@
   command: creates=/mnt/usr/bin/syslinux pacstrap /mnt syslinux
   when: bootloader == "syslinux"
 
+# TODO: think about checking device boot sectors to check which bootloader is installed
+
 - block:
 
   - name: install grub bootloader
@@ -113,7 +115,8 @@
 
   - name: create systemd-boot entry
     command: creates=/mnt/boot/loader/entries/arch.conf
-             install -D /mnt/usr/share/systemd/bootctl/arch.conf /mnt/boot/loader/entries/arch.conf
+             install -D /mnt/usr/share/systemd/bootctl/arch.conf
+                        /mnt/boot/loader/entries/arch.conf
 
   - name: detect root uuid
     changed_when: false
@@ -121,12 +124,18 @@
     shell: blkid -o value -s PARTUUID {{ root }}
 
   - name: update systemd-boot entry root
-    replace: dest=/mnt/boot/loader/entries/arch.conf regexp=(root=PARTUUID=).*?\s+ replace='\g<1>{{ s.stdout }} '
+    replace: dest=/mnt/boot/loader/entries/arch.conf
+             regexp=(root=PARTUUID=).*?\s+ 
+             replace='\g<1>{{ s.stdout }} '
 
   - name: update systemd-boot entry rootfstype
-    replace: dest=/mnt/boot/loader/entries/arch.conf regexp=(rootfstype=).*?\s+ replace='\1{{ filesystem }} '
+    replace: dest=/mnt/boot/loader/entries/arch.conf
+             regexp=(rootfstype=).*?\s+
+             replace='\1{{ filesystem }} '
 
   - name: update systemd-boot config
-    replace: dest=/mnt/boot/loader/loader.conf regexp=^(default\s+).*$ replace='\1arch'
+    replace: dest=/mnt/boot/loader/loader.conf
+             regexp=^(default\s+).*$
+             replace='\1arch'
 
   when: bootloader == "systemd-boot"

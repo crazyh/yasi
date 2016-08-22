@@ -1,3 +1,4 @@
 ---
 
+boot: "{{ root }}"
 bootloader: auto

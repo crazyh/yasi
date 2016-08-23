@@ -17,19 +17,23 @@
     - configure
     # TODO: support none bootloader
     - { role: bootloader, tags: [ "unsafe" ] }
+    - { role: aur, when: "aur | bool" }
     # - reboot
 
   vars:
     charset: UTF-8
     locale: en_US
 
-  # TODO: support systemd-boot
-
   vars_prompt:
+    - name: aur
+      default: "no"
+      private: no
+      prompt: aur
+
     - name: bootloader
       default: auto
       private: no
-      prompt: bootloader (auto, grub, syslinux, systemd-boot)
+      prompt: bootloader (auto, none, grub, syslinux, systemd-boot)
 
     - name: device
       default: /dev/sda

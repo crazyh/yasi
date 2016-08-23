@@ -135,6 +135,9 @@
              regexp=(?<=rootfstype=).*?(?=\s|\Z)
              replace='{{ filesystem }}'
 
+  # FIXME: /mnt/boot/loader/loader.conf is not exist when parition is empty but
+  # bootctl status returns OK
+
   - name: update systemd-boot config
     replace: dest=/mnt/boot/loader/loader.conf
              regexp=^(?<=default\s)(?:\s*)\w+$

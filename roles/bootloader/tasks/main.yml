@@ -102,18 +102,15 @@
 
 - block:
 
-  # TODO: it would be good to add more strong check for status of installed
-  # systemd-boot and support update
+  # XXX: it might be nice to add more strong check for status of installed
+  # systemd-boot due the following task will not add entry to EFI Variables
+  # if /mnt/boot/loader/loader.conf exists
 
-  - name: check systemd-boot status
-    changed_when: false
-    failed_when: false
-    register: s
-    shell: "arch-chroot /mnt bootctl status | grep 'Title: Linux Boot Manager'"
+  # XXX: looks like `bootctl install` always returns 1
 
   - name: install systemd-boot bootloader
-    command: arch-chroot /mnt bootctl install
-    when: s | failed
+    command: creates=/mnt/boot/loader/loader.conf arch-chroot /mnt bootctl install
+    failed_when: false
 
   - name: create systemd-boot entry
     command: creates=/mnt/boot/loader/entries/arch.conf
@@ -127,20 +124,17 @@
 
   - name: update systemd-boot entry root
     replace: dest=/mnt/boot/loader/entries/arch.conf
-             regexp=(?<=root=PARTUUID=).*?(?=\s|\Z)
+             regexp=(?<=root=PARTUUID=).*?(?=\s|$)
              replace={{ s.stdout }}
 
   - name: update systemd-boot entry rootfstype
     replace: dest=/mnt/boot/loader/entries/arch.conf
-             regexp=(?<=rootfstype=).*?(?=\s|\Z)
+             regexp=(?<=rootfstype=).*?(?=\s|$)
              replace='{{ filesystem }}'
-
-  # FIXME: /mnt/boot/loader/loader.conf is not exist when parition is empty but
-  # bootctl status returns OK
 
   - name: update systemd-boot config
     replace: dest=/mnt/boot/loader/loader.conf
-             regexp=^(?<=default\s)(?:\s*)\w+$
+             regexp=(?<=^default\s)(?:\s*).*
              replace='arch'
 
   when: bootloader == 'systemd-boot'

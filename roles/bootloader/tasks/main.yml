@@ -61,8 +61,15 @@
   assert:
     that: "not (bootloader == 'systemd-boot' and firmware == 'bios')"
 
-- name: install grub package
-  command: creates=/mnt/usr/bin/grub-install pacstrap /mnt grub
+- block:
+
+  - name: install efibootmgr package
+    command: pacstrap /mnt efibootmgr
+    when: firmware == 'uefi'
+
+  - name: install grub package
+    command: creates=/mnt/usr/bin/grub-install pacstrap /mnt grub
+
   when: bootloader == 'grub'
 
 - name: install syslinux package

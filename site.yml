@@ -20,16 +20,15 @@
     - { role: aur, when: "aur | bool" }
     # - reboot
 
-  vars:
-    charset: UTF-8
-    locale: en_US
-
   vars_prompt:
     - name: aur
       default: "no"
       private: no
-      prompt: aur
 
+    # TODO    
+    # - name: boot
+    #   private: no
+    
     - name: bootloader
       default: auto
       private: no

@@ -64,7 +64,7 @@
 - block:
 
   - name: install efibootmgr package
-    command: pacstrap /mnt efibootmgr
+    command: creates=/mnt/usr/bin/efibootmgr pacstrap /mnt efibootmgr
     when: firmware == 'uefi'
 
   - name: install grub package

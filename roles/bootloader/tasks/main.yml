@@ -82,7 +82,7 @@
 
   - name: install grub bootloader
     command: creates=/mnt/boot/grub/grubenv
-             arch-chroot /mnt grub-install {{ device }}
+             arch-chroot /mnt grub-install --efi-directory /boot {{ device }}
 
   - name: make grub config
     changed_when: false
@@ -114,6 +114,8 @@
   # if /mnt/boot/loader/loader.conf exists
 
   # XXX: looks like `bootctl install` always returns 1
+
+  # TODO: fill bug
 
   - name: install systemd-boot bootloader
     command: creates=/mnt/boot/loader/loader.conf arch-chroot /mnt bootctl install

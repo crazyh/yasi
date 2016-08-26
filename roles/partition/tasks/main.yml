@@ -8,19 +8,19 @@
       set_fact:
         root: "{{ device }}"
 
-    when: filesystem == "btrfs"
+    when: filesystem == 'btrfs'
 
   - block:
     - name: set partitions
       set_fact:
-        root: "{{ device }}1"
+        root: '{{ device }}1'
 
     - name: create new partitions for bios firmware
       command: sgdisk -N 1 {{ device }} creates={{ root }}
 
-    when: filesystem != "btrfs"
+    when: filesystem != 'btrfs'
 
-  when: firmware == "bios"
+  when: firmware == 'bios'
 
 - block:
   - name: set partitions for uefi firmware
@@ -31,4 +31,4 @@
   - name: create new partitions for uefi firmware
     command: sgdisk -n 1:0:{{ ef00_end }} -t 1:ef00 -N 2 {{ device }} creates={{ root }}
 
-  when: firmware == "uefi"
+  when: firmware == 'uefi'

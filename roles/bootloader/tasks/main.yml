@@ -103,7 +103,7 @@
   - name: update syslinux config
     replace: dest=/mnt/boot/syslinux/syslinux.cfg
              regexp=(?<=root=).*?(?=\s|\Z)
-             replace={{ boot }}
+             replace={{ root }}
 
   when: bootloader == 'syslinux'
 

@@ -1,3 +1,4 @@
 ---
 
-# TODO
+- name: install base devel packages
+  command: pacstrap /mnt base-devel

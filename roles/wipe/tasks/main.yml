@@ -6,7 +6,14 @@
 - name: unmount root filesystem
   mount: fstype=false name=/mnt src=false state=unmounted
 
-# TODO: check if device contains partitions or filesystem
+- name: locate block devices
+  changed_when: false
+  failed_when: s.rc != 0 and s.rc != 2
+  register: s
+  shell: blkid -o device {{ device }}*
 
 - name: wipe signatures from device
-  shell: blkid -o device {{ device }}* | sort -nr | xargs wipefs -a
+  shell: >
+    printf '{{ s.stdout }}' | sort -nr | xargs wipefs -a &&
+    sgdisk -Z {{ device }}
+  when: s.stdout != ''

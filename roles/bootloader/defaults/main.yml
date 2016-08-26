@@ -1,4 +1,3 @@
 ---
 
-boot: "{{ root }}"
 bootloader: auto

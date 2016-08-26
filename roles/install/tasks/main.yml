@@ -1,14 +1,17 @@
 ---
 
+# TODO: make /tmp/.yasi path variable
+
 - name: install base packages
-  command: creates=/mnt/etc/pacman.d/mirrorlist pacstrap /mnt
+  shell: creates=/tmp/.yasi.install.installbasepackages
+         pacstrap /mnt && touch /tmp/.yasi.install.installbasepackages
 
 - name: install btrfs progs
   command: creates=/mnt/usr/bin/btrfs pacstrap /mnt btrfs-progs
-  when: filesystem == "btrfs"
+  when: filesystem == 'btrfs'
 
 # TODO: think about checking if packages are installed
 
 - name: install additional packages
   command: pacstrap /mnt {{ packages }}
-  when: packages != ""
+  when: packages != ''

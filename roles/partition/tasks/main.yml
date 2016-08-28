@@ -1,5 +1,29 @@
 ---
 
+# XXX: these tasks await for empty device
+
+- block:
+
+  - block:
+    - name: set boot partition for uefi firmware
+      set_fact:
+        boot: "{{ device }}1"
+
+    - name: create boot partition for uefi firmware
+      command: sgdisk -n 1:0:{{ ef00_end }} -t 1:ef00 creates={{ boot }}
+
+    when: firmware == 'uefi'
+
+  when: boot is not defined
+
+- block:
+
+  when: root is not defined
+
+
+
+
+
 - block:
 
   - block:

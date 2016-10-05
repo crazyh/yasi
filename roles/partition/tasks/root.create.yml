@@ -1,0 +1,4 @@
+---
+
+- name: create root partition
+  command: sgdisk -n 1:0:{{ ef00_end }} -t 1:ef00 creates={{ root }}

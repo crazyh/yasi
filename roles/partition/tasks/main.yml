@@ -7,7 +7,7 @@
   - block: # root is undefined
 
     - block: # filesystem != 'btrfs'
-    
+
       - name: set root partition for bios firmware
         set_fact:
           root: "{{ device }}1"

@@ -1,14 +1,24 @@
 ---
 
 - name: unmount boot filesystem
-  mount: fstype=false name=/mnt/boot src=false state=unmounted
+  mount:
+    fstype: false
+    name: /mnt/boot
+    src: false
+    state: unmounted
 
 - name: unmount root filesystem
-  mount: fstype=false name=/mnt src=false state=unmounted
+  mount:
+    fstype: false
+    name: /mnt
+    src: false
+    state: unmounted
 
 - name: locate block devices
   changed_when: false
-  failed_when: s.rc != 0 and s.rc != 2
+  failed_when:
+    - s.rc != 0
+    - s.rc != 2
   register: s
   shell: blkid -o device {{ device }}*
 
@@ -16,4 +26,4 @@
   shell: >
     printf '{{ s.stdout }}' | sort -nr | xargs wipefs -a &&
     sgdisk -Z {{ device }}
-  when: s.stdout != ''
+  when: s.stdout != ""

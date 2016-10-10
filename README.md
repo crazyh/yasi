@@ -1,7 +1,7 @@
 yasi
 ====
 
-yasi is yet another stupid installer for [Arch Linux](https://www.archlinux.org/) built on top of [Ansible](https://github.com/ansible/ansible) playbook.
+yasi is yet another high configurable but stupid installer for [Arch Linux](https://www.archlinux.org/) built on top of [Ansible](https://github.com/ansible/ansible) playbook.
 
 It is based on boring Arch Linux [installation guide](https://wiki.archlinux.org/index.php/installation_guide) and allows to get a minimal bootable ready-to-use Arch Linux installation in several minutes.
 

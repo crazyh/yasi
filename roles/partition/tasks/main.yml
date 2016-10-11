@@ -2,56 +2,7 @@
 
 # XXX: these tasks await for an empty device
 
-- block: # firmware == 'bios'
-
-  - block: # root is undefined
-
-    - block: # filesystem != 'btrfs'
-
-      - name: set root partition for bios firmware
-        set_fact:
-          root: "{{ device }}1"
-
-      - name: create root partition for bios firmware
-        command: sgdisk -n 1:0:{{ ef00_end }} -t 1:ef00 creates={{ root }}
-
-      when: filesystem != 'btrfs'
-
-    - name: set root partition for btrfs filesystem
-      set_fact:
-        root: "{{ device }}"
-      when: filesystem == 'btrfs'
-
-    when: root is undefined
-
-  when: firmware == 'bios'
-
-- block: # firmware == 'uefi'
-
-  - block: # boot is defined
-
-    # TODO: do include
-
-    when: boot is defined
-
-  - block: # boot is undefined
-
-    - name: set boot partition for uefi firmware
-      set_fact:
-        root: "{{ device }}1"
-
-    - name: create boot partition for uefi firmware
-      command: sgdisk -n 1:0:{{ ef00_end }} -t 1:ef00 creates={{ boot }}
-
-    - block: # root is undefined
-
-      - name: set root partition for uefi firmware
-        set_fact:
-          root: "{{ device }}2"
-
-      - name: create root partition for uefi firmware
-        command: sgdisk -N 2 {{ device }} creates={{ root }}
-
-      when: root is undefined
-
-    when: boot is undefined
+- name: reset partition number
+  set_fact:
+    n: 1
+  

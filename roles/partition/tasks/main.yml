@@ -2,7 +2,24 @@
 
 # XXX: these tasks await for an empty device
 
+# [1]
 - name: reset partition number
   set_fact:
-    n: 1
-  
+    n: 0
+
+# [2], [3]
+- block:
+
+  when:
+    - boot is undefined
+    - firmware = "undefined
+
+# [4]
+- block:
+
+  # [6]
+  - block:
+
+    when: filesystem != "btrfs"
+
+  when: root is undefined

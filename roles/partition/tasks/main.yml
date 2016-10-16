@@ -10,6 +10,14 @@
 # [2], [3]
 - block:
 
+  - name: increase partition number
+    set_fact:
+      n: {{ n + 1 }}
+
+  - name: set boot
+    set_fact:
+      boot: {{ device + n }}
+
   when:
     - boot is undefined
     - firmware = "undefined

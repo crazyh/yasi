@@ -1,9 +1,13 @@
 {
   "builders": [{
-    "iso_checksum": "a549517801ab298899e97d1df1ba8d1fbc56182c",
     "iso_checksum_type": "sha1",
-    "iso_url": "http://mirror.rackspace.com/archlinux/iso/2016.10.01/archlinux-2016.10.01-dual.iso",
+    "iso_checksum_url": "{{ user `mirror` }}{{ user `release` }}/sha1sums.txt",
+    "iso_url": "{{ user `mirror` }}{{ user `release` }}/archlinux-{{ user `release` }}-dual.iso",
     "ssh_username": "root",
     "type": "qemu"
-  }]
+  }],
+  "variables": {
+    "mirror": "https://mirrors.kernel.org/archlinux/iso/",
+    "release": "2016.10.01"
+  }
 }

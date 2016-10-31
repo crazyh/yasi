@@ -10,23 +10,45 @@
 # [2], [3]
 - block:
 
-  - name: increase partition number
+  - name: increase partition number for uefi firmware
     set_fact:
-      n: {{ n + 1 }}
+      n: "{{ n + 1 }}"
 
   - name: set boot
     set_fact:
-      boot: {{ device + n }}
+      boot: "{{ device + n }}"
+
+  - name: create boot
+    set_fact:
+      boot: "{{ device + n }}"
 
   when:
     - boot is undefined
-    - firmware = "undefined
+    - firmware == "uefi"
 
 # [4]
 - block:
 
+  # [5]
+  - name: set root for btrfs filesystem
+    set_fact:
+      root: "{{ device }}"
+    when: filesystem == "btrfs"
+
   # [6]
   - block:
+
+    - name: increase partition number
+      set_fact:
+        n: "{{ n + 1 }}"
+
+    - name: set root
+      set_fact:
+        boot: "{{ device + n }}"
+
+    - name: create root
+      debug:
+        msg: TODO
 
     when: filesystem != "btrfs"
 

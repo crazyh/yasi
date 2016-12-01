@@ -8,10 +8,10 @@
 
 - name: install btrfs progs
   command: creates=/mnt/usr/bin/btrfs pacstrap /mnt btrfs-progs
-  when: filesystem == 'btrfs'
+  when: filesystem == "btrfs"
 
 # TODO: think about checking if packages are installed
 
 - name: install additional packages
   command: pacstrap /mnt {{ packages }}
-  when: packages != ''
+  when: packages != ""

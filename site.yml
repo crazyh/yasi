@@ -8,16 +8,16 @@
     - { role: setup, what: firmware }
     - timedate
     - { role: partition, tags: [ "unsafe" ] }
-    - { role: filesystem, tags: [ "unsafe" ],
-        when: "boot is defined or root is defined" }
-    - { role: mount,
-        when: "boot is defined or root is defined" }
-    - mirror
-    - install
-    - configure
-    # TODO: support none bootloader
-    - { role: bootloader, tags: [ "unsafe" ] }
-    - { role: aur, when: "aur | bool" }
+    # - { role: filesystem, tags: [ "unsafe" ],
+    #     when: "boot is defined or root is defined" }
+    # - { role: mount,
+    #     when: "boot is defined or root is defined" }
+    # - mirror
+    # - install
+    # - configure
+    # # TODO: support none bootloader
+    # - { role: bootloader, tags: [ "unsafe" ] }
+    # - { role: aur, when: "aur | bool" }
     # - reboot
 
   vars_prompt:
@@ -25,7 +25,7 @@
       default: "no"
       private: no
 
-    # TODO    
+    # TODO
     # - name: boot
     #   private: no
     
